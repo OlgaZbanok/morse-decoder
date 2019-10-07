@@ -37,8 +37,29 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
 function decode(expr) {
-    // write your solution here
+    let output='';
+    let morseletter='';
+    let code = {
+        '10':'.',
+        '11': '-',
+        '00': '',
+    };
+    let numsymb = expr.match(/.{10}/g); 
+    for (let s of numsymb) {
+        morseletter='';
+        if (s.match(/\*{10}/g)){
+            output +=' ';
+            continue;
+        }
+        let codesymb = s.match(/.{2}/g);
+        for (let c of codesymb) {
+            morseletter += code[c];
+        }
+            output += MORSE_TABLE[morseletter];
+    }
+    return output;
 }
 
 module.exports = {
